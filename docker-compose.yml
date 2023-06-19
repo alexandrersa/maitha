@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  api:
+    build: .
+    container_name: maitha-app
+    ports:
+      - '8000:80'
+    env_file:
+      - .env.db
+    restart: unless-stopped
+
+  db:
+    image: postgres:12-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env.db
+
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file:
+      - .env.db
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

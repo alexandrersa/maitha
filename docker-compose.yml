@@ -7,7 +7,7 @@ services:
     ports:
       - '8000:80'
     env_file:
-      - .env.db
+      - .env
     restart: unless-stopped
 
   db:
@@ -15,12 +15,12 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - .env.db
+      - .env
 
   pgadmin:
     image: dpage/pgadmin4
     env_file:
-      - .env.db
+      - .env
     ports:
       - "8080:80"
     depends_on:
